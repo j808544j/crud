@@ -11,21 +11,21 @@ const httpTrigger: AzureFunction = async function (
     const { error, value } = schema.validate(req.body);
     if (error) {
       context.res = {
-        status: 400,
+        status: "400",
         body: "Invalid request data. " + error,
       };
     } else {
       const result = await AddUser(value);
 
       context.res = {
-        status: 200,
+        status: "200",
         success: true,
         body: { message: `User created successfully - ${result.insertedId}` },
       };
     }
   } catch (error) {
     context.res = {
-      status: 500,
+      status: "500",
       success: false,
       body: { message: "Internal server error" + `${error}` },
     };

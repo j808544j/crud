@@ -1,11 +1,7 @@
 import { Context, HttpRequest } from "@azure/functions";
 import * as jwt from "jsonwebtoken";
 
-export default function auth(
-  context: Context,
-  req: HttpRequest,
-  next: () => void
-) {
+export default function auth(context: Context, req: HttpRequest) {
   try {
     const authHeader = req.headers.authorization;
     if (!authHeader) {
@@ -22,8 +18,7 @@ export default function auth(
       throw new Error("JWT_SECRET environment variable not set");
     }
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
-    console.log("decoded", decoded);
-    next();
+    return decoded;
   } catch (error) {
     context.res = {
       status: 401,

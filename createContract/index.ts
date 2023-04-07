@@ -7,7 +7,8 @@ const httpTrigger: AzureFunction = async function (
   context: Context,
   req: HttpRequest
 ): Promise<void> {
-  auth(context, req, async () => {
+  const decoded = auth(context, req);
+  if (decoded) {
     try {
       const { error, value } = schema.validate(req.body);
 
@@ -44,7 +45,7 @@ const httpTrigger: AzureFunction = async function (
     } finally {
       await client.close();
     }
-  });
+  }
 };
 
 export default httpTrigger;

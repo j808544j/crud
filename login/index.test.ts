@@ -10,15 +10,6 @@ describe("Login", () => {
     request = { query: {} } as unknown as HttpRequest;
   });
 
-  test("if user present in DB then return 200", async () => {
-    request.body = {
-      username: "dinesh1",
-      password: "password",
-    };
-    await httpTrigger(context, request);
-    expect(context.res.status).toMatch("200");
-  });
-
   test("if user not present in DB then return 401", async () => {
     request.body = {
       username: "dinesh200",

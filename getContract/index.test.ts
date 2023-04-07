@@ -11,7 +11,7 @@ describe("get Contract by providing id in url", () => {
   });
 
   test("when id exists in DB", async () => {
-    request.params = { id: "642e63a44242ad5c367142e0" };
+    request.params = { id: "642faa0dcb6c5f4db482523b" };
     await httpTrigger(context, request);
     expect(context.res.status).toMatch("200");
   });
