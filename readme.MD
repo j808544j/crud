@@ -65,24 +65,25 @@ The request body must be a JSON object conforming to the following schema:
 
 #### Response
 
-HTTP/1.1 200 OK
-Content-Type: application/json
+If the request is successful, the response will be a JSON object with the following properties:
 
-{
-"message": "User created successfully - <insertedId>"
-}
+- `status`: 200
+- `success`: true
+- `body`: a string indicating the ID of the newly created user
 
-HTTP/1.1 400 Bad Request
-Content-Type: text/plain
+If the request is unsuccessful, the response will be a JSON object with the following properties:
 
-Invalid request data. <error>
+- `status`: 400 (for invalid request data)
+- `success`: false
+- `body`: a string indicating the reason for the failure
 
-HTTP/1.1 500 Internal Server Error
-Content-Type: application/json
+### Error Handling
 
-{
-"message": "Internal server error <error>"
-}
+If an error occurs during processing, the response will be a a JSON object with the following properties:
+
+- `status` 500
+- `success` false
+- `body` indicating the error message with internal server error.
 
 ### GET /{id}
 
@@ -108,6 +109,12 @@ If the contract is not found, the response will be a JSON object with the follow
 
 ### Error Handling
 
+If an error occurs during processing, the response will be a a JSON object with the following properties:
+
+- `status` 500
+- `success` false
+- `body` indicating the error message with internal server error.
+
 ### GET /
 
 This Azure Function retrieves all the contracts from the database.
@@ -130,9 +137,13 @@ If there are no contracts found, the response will be a JSON object with the fol
 - `success`: false
 - `body`: "No contracts found"
 
-## Error Handling
+### Error Handling
 
-If an error occurs during processing, the response will have a `status` of 500 and a `body` indicating the error message.
+If an error occurs during processing, the response will be a a JSON object with the following properties:
+
+- `status` 500
+- `success` false
+- `body` indicating the error message with internal server error.
 
 ## User Authentication API
 
@@ -154,18 +165,25 @@ The request body must be a JSON object with the following properties:
 If the user is authenticated, the response will be a JSON object with the following properties:
 
 - `status`: 200
+- `success` false
 - `body`: A JWT token that can be used with other endpoints.
 
 If the credentials are invalid, the response will be a JSON object with the following properties:
 
 - `status`: 401
+- `success` false
 - `body`: "Invalid username or password".
 
 If the request body is invalid or missing any required properties, the response will be a JSON object with the following properties:
 
 - `status`: 400
+- `success` false
 - `body`: "Invalid request data." followed by a description of the error.
 
 ### Error Handling
 
-If an error occurs during processing, the response will have a `status` of 500 and a `body` indicating the error message.
+If an error occurs during processing, the response will be a a JSON object with the following properties:
+
+- `status` 500
+- `success` false
+- `body` indicating the error message with internal server error.

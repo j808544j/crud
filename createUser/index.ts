@@ -19,12 +19,14 @@ const httpTrigger: AzureFunction = async function (
 
       context.res = {
         status: 200,
+        success: true,
         body: { message: `User created successfully - ${result.insertedId}` },
       };
     }
   } catch (error) {
     context.res = {
       status: 500,
+      success: false,
       body: { message: "Internal server error" + `${error}` },
     };
   } finally {

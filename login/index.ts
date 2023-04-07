@@ -13,6 +13,7 @@ const httpTrigger: AzureFunction = async function (
     if (error) {
       context.res = {
         status: 400,
+        success: false,
         body: "Invalid request data. " + error,
       };
       return;
@@ -23,13 +24,18 @@ const httpTrigger: AzureFunction = async function (
 
     if (user) {
       const token = generateToken(user);
-      context.res = { status: "200", body: token };
+      context.res = { status: "200", success: true, body: token };
     } else {
-      context.res = { status: "401", body: "Invalid username or password" };
+      context.res = {
+        status: "401",
+        success: false,
+        body: "Invalid username or password",
+      };
     }
   } catch (err) {
     context.res = {
       status: 500,
+      success: false,
       body: "Internal server error" + `${err}`,
     };
   } finally {
