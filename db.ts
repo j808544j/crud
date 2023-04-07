@@ -1,11 +1,8 @@
 const MongoClient = require("mongodb").MongoClient;
-export const client = new MongoClient(
-  "mongodb+srv://j808544j:j808544j@cluster0.t2hit5b.mongodb.net/?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+export const client = new MongoClient(process.env.MONGO_URI, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 export async function getContractCollection() {
   await client.connect();
